@@ -1,7 +1,15 @@
+import maze.Maze;
+
+import java.io.File;
+
 public class Driver {
 
     public static void main(String[] args) {
-        new IterativeDFS(10, 10).print();
+        Maze dfs = MazeGenerator.iterDFS(50, 50);
+        dfs.render(new File(System.getProperty("user.dir") + "/dfs.png"));
+
+        Maze kruskal = MazeGenerator.kruskal(50, 50);
+        kruskal.render(new File(System.getProperty("user.dir") + "/kruskal.png"));
     }
 
 }
