@@ -10,13 +10,11 @@ import java.util.Arrays;
 
 public class RectMaze extends Maze {
 
-    private int width, height;
+    private final int width, height;
+    private final Cell[][] cells;
+
     private final int cellRenderSize = 10;
-    private Cell[][] cells;
-
     private final int[] WALL_PIXELS;
-
-    int num = 0;
 
     public RectMaze(int width, int height) {
         this.width = width;
@@ -44,18 +42,24 @@ public class RectMaze extends Maze {
 
     @Override
     public void render(File output) {
-        BufferedImage bi = new BufferedImage(width * cellRenderSize, height * cellRenderSize, BufferedImage.TYPE_INT_RGB);
-        int[] blue = new int[(width * cellRenderSize) * (height * cellRenderSize)];
+        int renderWidth = width * cellRenderSize;
+        int renderHeight = height * cellRenderSize;
+        BufferedImage bi = new BufferedImage(renderWidth, renderHeight, BufferedImage.TYPE_INT_RGB);
+
+        int[] blue = new int[renderWidth * renderHeight];
         Arrays.fill(blue, 255);
         bi.setRGB(0, 0, width * cellRenderSize, height * cellRenderSize, blue, 0, width * cellRenderSize);
 
+        // Draw walls for each cell
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int xStart = x * cellRenderSize;
                 int yStart = y * cellRenderSize;
 
+                // Walls exist in directions where the given cell has no neighbor
                 for (Direction d : Direction.values()) {
                     if (cells[x][y].getNeighbors().containsKey(d)) continue;
+
                     switch (d) {
                         case EAST -> bi.setRGB(xStart + (cellRenderSize - 1), yStart, 1, cellRenderSize, WALL_PIXELS, 0, 1);
                         case NORTH -> bi.setRGB(xStart, yStart, cellRenderSize, 1, WALL_PIXELS, 0, cellRenderSize);
