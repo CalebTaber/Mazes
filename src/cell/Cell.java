@@ -20,6 +20,10 @@ public class Cell {
         neighbors.put(dir, neighbor);
     }
 
+    public void removeWall(Direction dir, Cell neighbor) {
+        addNeighbor(dir, neighbor);
+    }
+
     public int getX() {
         return x;
     }

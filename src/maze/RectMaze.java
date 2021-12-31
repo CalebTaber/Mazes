@@ -27,14 +27,14 @@ public class RectMaze extends Maze {
             }
         }
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (x > 0) cells[x][y].addNeighbor(Direction.WEST, cells[x - 1][y]);
-                if (x < width - 1) cells[x][y].addNeighbor(Direction.EAST, cells[x + 1][y]);
-                if (y > 0) cells[x][y].addNeighbor(Direction.NORTH, cells[x][y - 1]);
-                if (y < height - 1) cells[x][y].addNeighbor(Direction.SOUTH, cells[x][y + 1]);
-            }
-        }
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                if (x > 0) cells[x][y].addNeighbor(Direction.WEST, cells[x - 1][y]);
+//                if (x < width - 1) cells[x][y].addNeighbor(Direction.EAST, cells[x + 1][y]);
+//                if (y > 0) cells[x][y].addNeighbor(Direction.NORTH, cells[x][y - 1]);
+//                if (y < height - 1) cells[x][y].addNeighbor(Direction.SOUTH, cells[x][y + 1]);
+//            }
+//        }
 
         WALL_PIXELS = new int[cellRenderSize];
         Arrays.fill(WALL_PIXELS, 0);
