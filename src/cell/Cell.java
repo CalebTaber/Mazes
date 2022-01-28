@@ -8,7 +8,7 @@ import java.util.Map;
 public class Cell {
 
     private Map<Direction, Cell> neighbors;
-    private int x, y;
+    private final int x, y;
 
     public Cell(int x, int y) {
         neighbors = new HashMap<>(4);

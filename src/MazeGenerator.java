@@ -18,12 +18,6 @@ public class MazeGenerator {
         }
     }
 
-    /*
-    Want the graph of the maze to be connected
-    How to ensure that?
-    Remove walls rather than add in iterDFS
-     */
-
     private static Direction dir(Cell src, Cell dest) {
         int srcX = src.getX();
         int srcY = src.getY();
