@@ -13,7 +13,7 @@ public class RectMaze extends Maze {
     private final int width, height;
     private final Cell[][] cells;
 
-    private final int cellRenderSize = 10;
+    private final int CELL_RENDER_SIZE = 10;
     private final int[] WALL_PIXELS;
 
     public RectMaze(int width, int height) {
@@ -27,6 +27,8 @@ public class RectMaze extends Maze {
             }
         }
 
+        // TODO choose start and end cells from outer edge of maze
+
 //        for (int y = 0; y < height; y++) {
 //            for (int x = 0; x < width; x++) {
 //                if (x > 0) cells[x][y].addNeighbor(Direction.WEST, cells[x - 1][y]);
@@ -36,35 +38,35 @@ public class RectMaze extends Maze {
 //            }
 //        }
 
-        WALL_PIXELS = new int[cellRenderSize];
+        WALL_PIXELS = new int[CELL_RENDER_SIZE];
         Arrays.fill(WALL_PIXELS, 0);
     }
 
     @Override
     public void render(File output) {
-        int renderWidth = width * cellRenderSize;
-        int renderHeight = height * cellRenderSize;
+        int renderWidth = width * CELL_RENDER_SIZE;
+        int renderHeight = height * CELL_RENDER_SIZE;
         BufferedImage bi = new BufferedImage(renderWidth, renderHeight, BufferedImage.TYPE_INT_RGB);
 
         int[] blue = new int[renderWidth * renderHeight];
         Arrays.fill(blue, 255);
-        bi.setRGB(0, 0, width * cellRenderSize, height * cellRenderSize, blue, 0, width * cellRenderSize);
+        bi.setRGB(0, 0, width * CELL_RENDER_SIZE, height * CELL_RENDER_SIZE, blue, 0, width * CELL_RENDER_SIZE);
 
         // Draw walls for each cell
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int xStart = x * cellRenderSize;
-                int yStart = y * cellRenderSize;
+                int xStart = x * CELL_RENDER_SIZE;
+                int yStart = y * CELL_RENDER_SIZE;
 
                 // Walls exist in directions where the given cell has no neighbor
                 for (Direction d : Direction.values()) {
                     if (cells[x][y].getNeighbors().containsKey(d)) continue;
 
                     switch (d) {
-                        case EAST -> bi.setRGB(xStart + (cellRenderSize - 1), yStart, 1, cellRenderSize, WALL_PIXELS, 0, 1);
-                        case NORTH -> bi.setRGB(xStart, yStart, cellRenderSize, 1, WALL_PIXELS, 0, cellRenderSize);
-                        case WEST -> bi.setRGB(xStart, yStart, 1, cellRenderSize, WALL_PIXELS, 0, 1);
-                        case SOUTH -> bi.setRGB(xStart, yStart + (cellRenderSize - 1), cellRenderSize, 1, WALL_PIXELS, 0, cellRenderSize);
+                        case EAST -> bi.setRGB(xStart + (CELL_RENDER_SIZE - 1), yStart, 1, CELL_RENDER_SIZE, WALL_PIXELS, 0, 1);
+                        case NORTH -> bi.setRGB(xStart, yStart, CELL_RENDER_SIZE, 1, WALL_PIXELS, 0, CELL_RENDER_SIZE);
+                        case WEST -> bi.setRGB(xStart, yStart, 1, CELL_RENDER_SIZE, WALL_PIXELS, 0, 1);
+                        case SOUTH -> bi.setRGB(xStart, yStart + (CELL_RENDER_SIZE - 1), CELL_RENDER_SIZE, 1, WALL_PIXELS, 0, CELL_RENDER_SIZE);
                     }
                 }
             }
